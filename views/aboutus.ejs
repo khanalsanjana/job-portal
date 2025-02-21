@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Elevate Workforce Solutions</title>
+  <style>
+    /* Base styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #2c3e50;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+    .navbar .logo {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    .navbar .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .navbar .nav-links a {
+      text-decoration: none;
+      color: #2c3e50;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    .navbar .nav-links a:hover {
+      color: #e67e22;
+    }
+
+    /* Main Container */
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 3rem 2rem;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(5px);
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1.2rem;
+      color: #34495e;
+      max-width: 800px;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    /* Contact Section */
+    .contact-section {
+      margin-top: 3rem;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.9);
+      width: 100%;
+      max-width: 600px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .contact-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #2c3e50;
+    }
+    .contact-info {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+    .contact-info a {
+      text-decoration: none;
+      color: #e67e22;
+      font-weight: 500;
+    }
+
+    /* Feedback Form */
+    .feedback-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .feedback-form input, .feedback-form textarea {
+      width: 100%;
+      padding: 0.8rem;
+      font-size: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .feedback-form button {
+      background: #e67e22;
+      color: white;
+      padding: 0.8rem;
+      font-size: 1.1rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .feedback-form button:hover {
+      background: #d35400;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.9);
+      color: #2c3e50;
+      font-size: 0.9rem;
+      margin-top: 3rem;
+    }
+    .logo a {
+        text-decoration: none;
+        color: black;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <!-- <div class="logo">Elevate Workforce Solutions</div> -->
+    <div class="logo"><a href="/">Elevate Workforce Solutions</a></div>
+    <div class="nav-links">
+      <a href="/login">Login</a>
+      <a href="/register">Register</a>
+      <a href="/aboutus">About Us</a>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <div class="container">
+    <h1>About Us</h1>
+    <p>
+      Elevate Workforce Solutions is dedicated to connecting talented individuals with leading employers. 
+      Our mission is to empower careers and build futures by providing a seamless platform for job seekers 
+      and companies to find their perfect match. 
+    </p>
+
+    <!-- Contact Section -->
+    <div class="contact-section">
+      <h2>Contact Us</h2>
+      <p class="contact-info">
+        📞 Phone: <a href="phone no:9803383838">9803383838</a><br>
+        📧 Email: <a href="mailto:support@elevateworkforce.com">support@elevateworkforce.com</a>
+      </p>
+
+      <!-- Feedback Form -->
+      <h2>Send Us Feedback</h2>
+      <form class="feedback-form" action="/submit-feedback" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" rows="4" placeholder="Your Feedback" required></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    &copy; 2025 Elevate Workforce Solutions. All rights reserved.
+  </div>
+
+</body>
+</html>

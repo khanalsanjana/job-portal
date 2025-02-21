@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jobseeker Dashboard</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      /* background: #f5f5f5; */
+      background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      padding: 1rem 2rem;
+      color: black;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar h2 {
+      font-size: 1.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .logout {
+      background-color: #e7634f;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .logout:hover {
+      background-color: #c0392b;
+    }
+
+    /* Main Content */
+    .main-content {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(5px);
+      padding: 6rem 2rem 2rem;
+    }
+
+    /* Horizontal Job List */
+    .job-container {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding: 1rem 0;
+      white-space: nowrap;
+    }
+
+    .job-card {
+      flex: 0 0 auto;
+      width: 300px;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .job-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .job-card h3 {
+      font-size: 1.2rem;
+      color: #2c3e50;
+    }
+
+    .job-card p {
+      font-size: 0.9rem;
+      color: #666;
+      margin: 0.5rem 0;
+    }
+
+    .job-card button {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      color: #fff;
+      background: #3498db;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .job-card button:hover {
+      background: #2980b9;
+    }
+
+    /* Application Status */
+    .status {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      font-weight: bold;
+      border-radius: 5px;
+      text-align: center;
+      margin-top: 0.8rem;
+    }
+
+    .Pending { background-color: #f1c40f; color: #000; }
+    .Approved { background-color: #2ecc71; color: #000; }
+    .Rejected { background-color: #e74c3c; color: #000; }
+
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <h2>Jobseeker Dashboard</h2>
+    <div class="nav-links">
+     
+      <a href="/logout" class="logout">Logout</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+
+    <!-- Job Listings -->
+    <section id="job-listings">
+      <h2>Job Listings</h2>
+      <div class="job-container">
+        <% jobs.forEach(job => { %>
+          <div class="job-card">
+            <h3><%= job.jobTitle %></h3>
+            <p><strong>Company:</strong> <%= job.Company.companyName %></p>
+            <p><strong>Location:</strong> <%= job.location || 'N/A' %></p>
+            <p><strong>Type:</strong> <%= job.jobType || 'N/A' %></p>
+            <p><strong>Salary:</strong> Rs<%= job.salary || 'N/A' %></p>
+            <form action="/apply/<%= job.id %>" method="POST">
+              <button type="submit">Apply</button>
+            </form>
+          </div>
+        <% }) %>
+      </div>
+    </section>
+
+    <!-- My Applications -->
+    <section id="applications">
+      <h2>My Applications</h2>
+      <div class="job-container">
+        <% jobs.forEach(job => { %>
+          <% if (appliedJobs[job.id]) { %>
+            <div class="job-card">
+              <h3><%= job.jobTitle %></h3>
+              <p><strong>Company:</strong> <%= job.Company.companyName %></p>
+              <p><strong>Location:</strong> <%= job.location || 'N/A' %></p>
+              <p><strong>Type:</strong> <%= job.jobType || 'N/A' %></p>
+              <p><strong>Salary:</strong> Rs<%= job.salary || 'N/A' %></p>
+              <p><strong>Status:</strong> <span class="status <%= appliedJobs[job.id] %>"><%= appliedJobs[job.id] %></span></p>
+            </div>
+          <% } %>
+        <% }) %>
+      </div>
+    </section>
+
+  </div>
+
+</body>
+</html>

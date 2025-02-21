@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Jobs for <%= company.companyName %></title>
+    <style>
+        /* General styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body, html {
+            height: 100%;
+            background: #e1e0e0; /* Soft blue to purple gradient */
+            color: #333; /* Dark gray text */
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgb(216 187 187 / 90%);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar a {
+            color: #333;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 0.75rem;
+            transition: color 0.3s ease;
+        }
+        .navbar a:hover {
+            color: #585368;
+        }
+
+        /* Main content */
+        .content {
+            margin-top: 100px;
+            padding: 2rem;
+        }
+
+        /* Section styling */
+        .section {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #151617;
+        }
+
+        /* Form styling */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 1rem;
+            font-weight: bold;
+            color: #333;
+        }
+        input, textarea, select {
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+        button {
+            padding: 0.8rem;
+            font-size: 1rem;
+            color: #fff;
+            background: #c87979;
+            border: none;
+            border-radius: 5px;
+            margin-top: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #934d4d;
+        }
+
+        /* Job Cards */
+        .job-card {
+            background: #ffffff;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .job-card h3 {
+            color: #7F5AF0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+        
+        background: #d9bfbf;
+        color: #333333;
+
+        }
+        tr:hover {
+            background: #f1f1f1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 0.5rem;
+            }
+            .navbar a {
+                padding: 0.5rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="#createJobForm">Create Job</a>
+        <a href="#jobListings">View Jobs</a>
+        <a href="#jobApplications">Manage Applications</a>
+        <a href="/employer/dashboard">Go Back</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+
+        <!-- Create Job Form -->
+        <section id="createJobForm" class="section">
+            <h2>Create New Job</h2>
+            <form action="/company/<%= company.companyId %>/jobs/create" method="POST">
+                <label for="jobTitle">Job Title:</label>
+                <input type="text" id="jobTitle" name="jobTitle" required>
+
+                <label for="jobDescription">Job Description:</label>
+                <textarea id="jobDescription" name="jobDescription"></textarea>
+
+                <label for="salary">Salary:</label>
+                <input type="number" id="salary" name="salary" required>
+
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" required>
+
+                <label for="jobType">Job Type:</label>
+                <select id="jobType" name="jobType" required>
+                    <option value="Full-time">Full-time</option>
+                    <option value="Part-time">Part-time</option>
+                </select>
+
+                <label for="postingDate">Posting Date:</label>
+                <input type="date" id="postingDate" name="postingDate" required>
+
+                <label for="expiryDate">Expiry Date:</label>
+                <input type="date" id="expiryDate" name="expiryDate" required>
+
+                <button type="submit">Create Job</button>
+            </form>
+        </section>
+
+        <!-- Job Listings -->
+        <section id="jobListings" class="section">
+            <h2>Your Job Listings</h2>
+            <% if (jobs && jobs.length > 0) { %>
+                <% jobs.forEach(job => { %>
+                    <div class="job-card">
+                        <h3><%= job.jobTitle %></h3>
+                        <p><strong>Description:</strong> <%= job.jobDescription %></p>
+                        <p><strong>Salary:</strong> <%= job.salary %></p>
+                        <p><strong>Location:</strong> <%= job.location %></p>
+                        <p><strong>Type:</strong> <%= job.jobType %></p>
+                        <p><strong>Posting Date:</strong> <%= job.postingDate.toISOString().split('T')[0] %></p>
+                        <p><strong>Expiry Date:</strong> <%= job.expiryDate.toISOString().split('T')[0] %></p>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p>No jobs found for this company.</p>
+            <% } %>
+        </section>
+
+         <!-- Job Applications Section -->
+         <section id="jobApplications" class="section">
+            <h2>View/Manage Job Applications</h2>
+            <% if (applications && applications.length > 0) { %>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Applicant Name</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Resume</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% applications.forEach(application => { %>
+                            <tr>
+                                <td><%= application.User.name %></td>
+                                <td><%= application.User.email %></td>
+                                <td><%= application.status %></td>
+                                <td>
+                                    <% if (application.User.validDocument) { %>
+                                        <a href="/<%= application.User.validDocument %>" target="_blank">View Resume</a>
+                                    <% } else { %>
+                                        N/A
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <form action="/applications/<%= application.id %>/approve" method="POST" style="display:inline;">
+                                        <button type="submit" style="background: #1fbd00;">Approve</button>
+                                    </form>
+                                    <form action="/applications/<%= application.id %>/reject" method="POST" style="display:inline;">
+                                        <button type="submit" style="background: #e0e0e0; color: red;">Reject</button>
+                                    </form>
+                                    <form action="/applications/<%= application.id %>/delete" method="POST" style="display:inline;">
+                                        <button type="submit" style="background: #bd0000;">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            <% } else { %>
+                <p>No applications available for this job.</p>
+            <% } %>
+        </section>
+    </div>
+
+
+    </div>
+</body>
+</html>
